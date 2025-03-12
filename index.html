@@ -3,39 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuro-Agent Models</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Workshop Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end; /* Ensure nav content is right-aligned */
+            min-height: 60px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0 2rem;
+            width: auto; /* Remove the full width constraint */
+        }
+
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .banner {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-color: #000;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* 30% opaque black overlay */
+            z-index: 1;
+        }
+
+        .banner img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom; /* Aligns image to bottom */
+            opacity: 1; /* Changed from 0.7 since we're using overlay */
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2; /* Increased z-index to appear above the overlay */
+        }
+
+        .banner h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .schedule {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-width: 1000px; /* Add max-width to constrain table size */
+            margin: 0 auto; /* Center the schedule container */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds subtle shadow */
+        }
+
+        .schedule table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0; /* Add vertical margin inside the schedule container */
+        }
+
+        .schedule th, .schedule td {
+            padding: 1rem 1.5rem; /* Increased horizontal padding */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .schedule th {
+            background-color: #333;
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Changed from auto-fit to 3 columns */
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px; /* Optional: adds a max-width to ensure consistent layout */
+            margin-left: auto; /* Optional: centers the grid */
+            margin-right: auto; /* Optional: centers the grid */
+        }
+
+        .person {
+            text-align: center;
+        }
+
+        .person img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .info {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .banner h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            position: absolute;
+            right: 1rem;
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Center vertically */
+            height: 40px; /* Fixed height */
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0.9);
+                padding: 1rem;
+            }
+
+            nav ul.active {
+                display: block;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+        }
+
+        .speaker-row {
+            background-color: #f0f2f5;  /* Light grayish-blue color */
+        }
+
+        /* Ensure hover effect for better interaction */
+        .speaker-row:hover {
+            background-color: #e5e8ed;  /* Slightly darker on hover */
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Neuro-Agent Models</h1>
-        <nav>
-            <ul>
-                <li><a href="#organizers">Organizers</a></li>
-                <li><a href="#speakers">Speakers</a></li>
-                <li><a href="#schedule">Schedule</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul>
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#speakers">Speakers</a></li>
+            <li><a href="#organizers">Organizers</a></li>
+        </ul>
+    </nav>
 
-    <section id="organizers">
-        <h2>Organizers</h2>
-        <p>List of organizers here...</p>
+    <div class="banner">
+        <img src="assets/hangzhou.jpg" alt="Workshop Banner">
+        <div class="banner-content" style="color: #f5f5f5;">
+            <h1><b style="font-size: 1.5em;">IROS 2025 Workshop</b>
+                <br>on<br>Robot Embodied Computational Neuroscience</h1>
+            <p style="font-size: 1.5em;"><i>October 19-25, 2025 in Hangzhou, China</i></p>
+        </div>
+    </div>
+
+    <section id="abstract">
+        <h2>Abstract</h2>
+        <p style="max-width: 90%; margin: 0 auto;">Computational neuroscience provides powerful methodologies to address one of the most significant scientific challenges of our era: understanding how the nervous system controls behavior. Models of the nervous system allow for exploring the roles of neural circuits in sensory processing, cognition, behavior generation, and motor control. However, it is infeasible to understand how the nervous system controls behavior without the body it evolved to operate in. Embodiment addresses this critical aspect by closing the perception-action loop through real-world physical interactions. Robotics and physics-simulators effectively bridge this gap by providing physical embodiment to computational neural models, facilitating tangible interaction with the environment. Additionally, biological neural circuits have already evolved to provide robust solutions to challenges analogous to those faced in robotics, such as motor learning, adaptation, robust locomotion, and navigation in complex environments. Thus, robotics could substantially benefit from the insights derived from millions of years of evolutionary refinement encoded in biological neural systems.
+            <br><br>
+            This workshop at IROS 2025 brings together roboticists using computational neuroscience approaches to solve robotics challenges and neuroscientists using robots to understand neural functions. Unlike previous related events, this workshop introduces cutting-edge approaches in neuroAI, neuromorphic engineering, embodied neural computation, and bio-inspired robotics solutions to enhance the real-world applicability and robustness of robotic systems. The workshop promotes interdisciplinary collaborations, advancing fundamental understanding in neuroscience while simultaneously fostering innovative, bio-inspired solutions to contemporary robotic challenges.
+            </p>
+    </section>
+
+    <section id="schedule"></section>
+        <h2>Schedule</h2>
+        <div class="schedule">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Title</th>
+                        <th>Speaker</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>9:30 - 9:40 AM</td>
+                        <td>Introduction</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="speaker-row">
+                        <td>9:40 - 10:05 AM</td>
+                        <td>X</td>
+                        <td>Y</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>5:30 - 5:45 PM</td>
+                        <td>Break</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>5:45 - 6:30 PM</td>
+                        <td>Afternoon Panel</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section id="speakers">
         <h2>Speakers</h2>
-        <p>List of speakers here...</p>
+        <div class="grid">
+            <div class="person">
+                <img src="assets/somebody.jpg" alt="Speaker 1">
+                <h3>Auke Ijspeert</h3>
+                <p>EPFL</p>
+            </div>
+
+        </div>
     </section>
 
-    <section id="schedule">
-        <h2>Schedule</h2>
-        <p>Schedule details here...</p>
+    <section id="organizers">
+        <h2>Organizers</h2>
+        <div class="grid">
+            <div class="person">
+                <img src="assets/ignacio.jpg" alt="Organizer 1">
+                <h3><a href="https://acn.ugr.es/author/ignacio-abadia/" target="_blank">Ignacio Abadia</a></h3>
+                <p>University of Granada</p>
+            </div>
+            <div class="person">
+                <img src="assets/gizem.png" alt="Organizer 2">
+                <h3><a href="https://gizemozd.github.io/" target="_blank">Pembe Gizem Özdil</a></h3>
+                <p>École polytechnique fédérale de Lausanne (EPFL)</p>
+            </div>
+            <div class="person">
+                <img src="assets/kamilo.png" alt="Organizer 3">
+                <h3><a href="https://km-robota.com/ppl/1km.html" target="_blank">Kamilo Melo</a></h3>
+                <p>KM-RoBoTa, Switzerland</p>
+            </div>
+            <div class="person">
+                <img src="assets/shravan.jpg" alt="Organizer 4">
+                <h3><a href="https://waveparticle.one/" target="_blank">Shravan Tata Ramalingasetty</a></h3>
+                <p>Drexel University</p>
+            </div>
+            <div class="person">
+                <img src="assets/xuan.png" alt="Organizer 5">
+                <h3>Xuan Wu</h3>
+                <p>CNAEIT</p>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>© 2025 Neuro-Agent Models</p>
-    </footer>
+    <section id="info">
+        <h2>Additional Information</h2>
+        <div class="info">
+            <p>With consent from speakers, we will record the workshop and make the video available to the public. Check back for more information.</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('nav ul');
+            menu.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
-
